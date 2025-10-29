@@ -1,14 +1,13 @@
 # GitHub Explorer
 
-A simple and clean web application built with React and TypeScript that allows you to search for GitHub repositories in real-time. You can view repository details and bookmark your favorites for later.
+A micro production-ready application built with React and TypeScript that allows searching and bookmarking GitHub repositories. 
 
 ## Features
 
 - **Real-time Search:** Instantly search for repositories as you type, with debouncing to optimize API requests.
 - **Repository Cards:** View search results in a clear and organized card layout.
-- **Bookmarking:** Save your favorite repositories. Bookmarks are stored in your browser's local storage.
+- **Bookmarking:** Bookmark your favourite repositories.
 - **Filter by Bookmarks:** Easily filter the view to see only your bookmarked repositories.
-- **Responsive Design:** A clean interface that works on different screen sizes.
 
 ## Tech Stack
 
@@ -27,12 +26,14 @@ Make sure you have [Node.js](https://nodejs.org/) (version 18 or higher) and [np
 ### Installation
 
 1.  **Clone the repository:**
+
     ```bash
-    git clone https://github.com/your-username/github-explorer.git
+    git clone https://github.com/Utkarsh-0304/github-explorer.git
     cd github-explorer
     ```
 
 2.  **Install the dependencies:**
+
     ```bash
     npm install
     ```
@@ -44,12 +45,17 @@ Make sure you have [Node.js](https://nodejs.org/) (version 18 or higher) and [np
 
 The application should now be running on `http://localhost:5173` (or another port if 5173 is in use).
 
-## Available Scripts
+## Decisions and Trade-Offs
+- **Styling**: Using TailwindCSS, ruled out the need to define separate CSS files and instead write CSS with the HTML itself.
+- **State Management**: In the current scenario, I didn't find the need for any state-management library like Redux Toolkit. But as the project complexity grows, some libraries would be needed.
+- **Fetch API**: Currently, only the browser Fetch API is being used. In future, Axios can be used to improve data fetching from the public GitHub API.
 
-In the project directory, you can run:
+## Future-Scope
+- Add an option to show all bookmarks irrespective of the current search query.
+- Implement Pagination to display more than 30 repository cards concisely.
+- Add more sort options (like newest, oldest, recently updated, etc.)
+- Feature to filter based on languages, similar to GitHub.
 
--   `npm run dev`: Runs the app in development mode.
--   `npm run build`: Builds the app for production.
--   `npm run lint`: Runs the linter to check for code quality issues.
--   `npm run format`: Formats all source files using Prettier.
--   `npm run preview`: Serves the production build locally for preview.
+## Deployments
+
+This application is deployed on **Render** and can be accessed [here](https://github-explorer-01sf.onrender.com/)
