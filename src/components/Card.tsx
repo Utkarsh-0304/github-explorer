@@ -14,7 +14,7 @@ interface CardProps {
 function Card({ data, isBookmarked, toggleBookmark, checked }: CardProps) {
   return (
     ((checked && isBookmarked) || !checked) && (
-      <div className="m-auto p-4 border border-gray-200 rounded-lg flex flex-col gap-4 bg-white shadow-md w-full transition-transform duration-200 hover:scale-105">
+      <div className="m-auto p-4 border border-gray-200 rounded-lg flex flex-col gap-4 bg-white shadow-md w-full">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <img
@@ -29,9 +29,8 @@ function Card({ data, isBookmarked, toggleBookmark, checked }: CardProps) {
             </a>
           </div>
           <button
-            className={`flex items-center gap-2 px-4 py-2 cursor-pointer select-none rounded-md text-white ${
-              isBookmarked ? 'bg-blue-600' : 'bg-gray-600'
-            } hover:bg-blue-700`}
+            className={`flex items-center gap-2 px-4 py-2 cursor-pointer select-none rounded-md text-white ${isBookmarked ? 'bg-blue-600' : 'bg-gray-600'
+              } hover:bg-blue-700`}
             onClick={() => toggleBookmark(data.id)}
           >
             {isBookmarked ? (
