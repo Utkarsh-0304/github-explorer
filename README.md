@@ -4,24 +4,23 @@ A micro production-ready application built with React and TypeScript that allows
 
 ## Features
 
-- **Real-time Search:** Instantly search for repositories as you type, with debouncing to optimize API requests.
-- **Repository Cards:** View search results in a clear and organized card layout.
+- **Real-time Search:** Instantly search for repositories as you type, with debouncing to optimise API requests.
+- **Repository Cards:** View search results in a clear and organised card layout.
 - **Bookmarking:** Bookmark your favourite repositories.
 - **Filter by Bookmarks:** Easily filter the view to see only your bookmarked repositories.
 
 ## Tech Stack
 
-- **Frontend:** [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/)
-- **Build Tool:** [Vite](https://vitejs.dev/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Icons:** [React Icons](https://react-icons.github.io/react-icons/)
-- **Code Quality:** [ESLint](https://eslint.org/), [Prettier](https://prettier.io/)
+- **Frontend:** React, Typescript
+- **Build Tool:** Vite
+- **Styling:** TailwindCSS
+- **Code Quality:** ESlint, Prettier
 
 ## Getting Started
 
 ### Prerequisites
 
-Make sure you have [Node.js](https://nodejs.org/) (version 18 or higher) and [npm](https://www.npmjs.com/) installed.
+Please make sure you have Node.js (version 18 or later) and npm installed.
 
 ### Installation
 
