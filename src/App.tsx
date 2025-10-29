@@ -1,22 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import Card from './Card';
+import { useCallback, useEffect, useState } from 'react';
 import type { GitHubApiResponse } from './types';
+import useDebounce from './hooks/useDebounce';
+import Search from './components/Search';
+import RepoList from './components/RepoList';
+import Status from './components/Status';
 
-function useDebounce(value: string, delay: number) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-
-  return debouncedValue;
-}
+import Header from './components/Header';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -49,60 +38,41 @@ function App() {
     if (stored) setBookmarks(JSON.parse(stored));
   }, []);
 
-  const toggleBookmark = useCallback((id: number) => {
-    let updated;
-    if (bookmarks.includes(id)) {
-      updated = bookmarks.filter((b) => b !== id);
-    } else {
-      updated = [...bookmarks, id];
-    }
-    setBookmarks(updated);
-    localStorage.setItem('bookmarkedRepos', JSON.stringify(updated));
-  }, [bookmarks]);
+  const toggleBookmark = useCallback(
+    (id: number) => {
+      let updated;
+      if (bookmarks.includes(id)) {
+        updated = bookmarks.filter((b) => b !== id);
+      } else {
+        updated = [...bookmarks, id];
+      }
+      setBookmarks(updated);
+      localStorage.setItem('bookmarkedRepos', JSON.stringify(updated));
+    },
+    [bookmarks]
+  );
 
   return (
-    <div className="p-2 flex flex-col items-center justify-center">
-      <input
-        className="w-[50%] p-[0.7rem] bg-white rounded-md"
-        autoFocus
-        type="text"
-        value={searchQuery}
-        placeholder="Enter something here"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setSearchQuery(e.target.value)
-        }
-      />
-      {data && (
-        <div className="mt-[1rem] flex gap-[0.4rem] text-center">
-          <input
-            type="checkbox"
+    <div className="flex flex-col items-center">
+      <Header />
+      <div className="p-4 w-full max-w-4xl">
+        <Search
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          checked={checked}
+          setIsChecked={setIsChecked}
+          showCheckbox={data !== null}
+        />
+        <Status loading={loading} error={error} data={data} checked={checked} />
+        {data && !loading && (
+          <RepoList
+            repos={data.items}
+            bookmarks={bookmarks}
+            toggleBookmark={toggleBookmark}
             checked={checked}
-            onClick={() => setIsChecked((prev) => !prev)}
           />
-          All Bookmarked only
-        </div>
-      )}
-      {data && !loading && !checked && (
-        <div>{data?.items.length} Result(s)</div>
-      )}
-      {(error && <p className="text-red-500">{error}</p>) ||
-        (loading && <p className="text-center">Loading...</p>) ||
-        (data &&
-          (data.items.length === 0 ? (
-            <p>No Repositories Found</p>
-          ) : (
-            <div>
-              {data.items.map((dat) => (
-                <Card
-                  key={dat.id}
-                  data={dat}
-                  isBookmarked={bookmarks.includes(dat.id)}
-                  toggleBookmark={toggleBookmark}
-                  checked={checked}
-                />
-              ))}
-            </div>
-          )))}
+        )}
+      </div>
     </div>
   );
 }

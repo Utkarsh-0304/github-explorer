@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import type { GitHubRepo } from './types';
+import type { GitHubRepo } from '../types.ts';
 import { MdOutlineStar, MdOutlineStarOutline } from 'react-icons/md';
 import { FaCircle } from 'react-icons/fa';
-import { colors } from './colors.ts';
+import { colors } from '../colors.ts';
 
 interface CardProps {
   data: GitHubRepo;
@@ -14,20 +14,24 @@ interface CardProps {
 function Card({ data, isBookmarked, toggleBookmark, checked }: CardProps) {
   return (
     ((checked && isBookmarked) || !checked) && (
-      <div className="mt-[1rem] p-[1rem] border border-gray-300 rounded rounded-[8px] flex flex-col gap-[2rem] bg-white shadow-md min-w-[400px] max-w-[550px]">
+      <div className="m-auto p-4 border border-gray-200 rounded-lg flex flex-col gap-4 bg-white shadow-md w-full transition-transform duration-200 hover:scale-105">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-[1rem]">
+          <div className="flex items-center gap-4">
             <img
               src={data.owner.avatar_url}
-              className="w-[40px] h-[40px] rounded-[50%]"
+              className="w-12 h-12 rounded-full"
             />
-            <a href={data.owner.html_url} className="hover:underline">
+            <a
+              href={data.owner.html_url}
+              className="text-lg font-semibold text-blue-600 hover:underline"
+            >
               {data.owner.login}/{data.name}
             </a>
           </div>
-          <div
-            className="flex items-center gap-[0.2rem] border border-gray-500 px-3 py-2 cursor-pointer bg-[#f1f1f1] select-none rounded-[2px]
-          "
+          <button
+            className={`flex items-center gap-2 px-4 py-2 cursor-pointer select-none rounded-md text-white ${
+              isBookmarked ? 'bg-blue-600' : 'bg-gray-600'
+            } hover:bg-blue-700`}
             onClick={() => toggleBookmark(data.id)}
           >
             {isBookmarked ? (
@@ -36,17 +40,17 @@ function Card({ data, isBookmarked, toggleBookmark, checked }: CardProps) {
               <MdOutlineStarOutline size={20} />
             )}
             {isBookmarked ? 'Bookmarked' : 'Bookmark'}
-          </div>
+          </button>
         </div>
-        {data.description}
-        <div className="flex items-center gap-[1rem]">
+        <p className="text-gray-700">{data.description}</p>
+        <div className="flex items-center gap-4 text-gray-600">
           {data.language && (
-            <span className="flex gap-[0.5rem] items-center">
-              <FaCircle color={colors[data.language]} size={10} />
+            <span className="flex items-center gap-2">
+              <FaCircle color={colors[data.language]} size={12} />
               {data.language}
             </span>
           )}
-          <span className="flex gap-[0.2rem] items-center">
+          <span className="flex items-center gap-1">
             <MdOutlineStarOutline />
             {data.stargazers_count}
           </span>
